@@ -1,4 +1,4 @@
-afr = dsp.AudioFileReader('C:\Users\Kaikki\Documents\GitHub\AudioWatermarking\OutputAudio\EchoEcho.wma');
+afr = dsp.AudioFileReader('C:\Users\Kaikki\Documents\GitHub\AudioWatermarking\EchoWatermarking\OutputAudio\EchoEcho.wma');
 %adw = audioDeviceWriter('SampleRate', afr.SampleRate);
 audio = afr();
 counter = 0;
