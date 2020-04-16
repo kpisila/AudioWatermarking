@@ -1,12 +1,10 @@
 
-
 %%%%%%%%%%%%%%%%%%%%% Create MATLAB objects to read the audio file %%%%%%%%
-afr1 = dsp.AudioFileReader('C:\Program Files\MATLAB\AudioFiles\The Car Song.mp3');
-afr2 = dsp.AudioFileReader('C:\Program Files\MATLAB\AudioFiles\The Car Song.mp3');
+afr1 = dsp.AudioFileReader('sampleAudio.mp3');
+afr2 = dsp.AudioFileReader('sampleAudio.mp3');
 
 %%%%%%%%%%%%%%%%%% Create MATLAB object to write a new audio file %%%%%%%%%
-afw = dsp.AudioFileWriter('C:\Users\Kaikki\Documents\GitHub\AudioWatermarking\EchoWatermarking\OutputAudio\EchoEcho.wma', 'FileFormat', 'WMA');
-
+afw = dsp.AudioFileWriter('audioFile.wma');
 %%%%%%%%%%% Create MATLAB object to play the altered audio %%%%%%%%%%%%%%%%
 adw = audioDeviceWriter('SampleRate', afr2.SampleRate);
 
