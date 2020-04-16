@@ -5,7 +5,7 @@ error = 0;
 opBit = zeros( 1, 2);
 opBitidx = 1;
 %fileSect will replace audioFile.wav
-afr = dsp.AudioFileReader('EchoWatermarkedTest.wav', 'SamplesPerFrame', 4096);
+afr = dsp.AudioFileReader('C:\Users\Kai\Documents\GitHub\AudioWatermarking\EchoWatermarking\OutputAudio\EchoWatermarked.wma', 'SamplesPerFrame', 4096);
 
 %adw = audioDeviceWriter('SampleRate', afr.SampleRate);
 
@@ -81,7 +81,7 @@ end
 if both == 0 || both == 2
     error = error + 1;
 end 
-disp('Error');
+
 disp(error);
 disp(opBit(opBitidx));
 opBitidx = opBitidx + 1;

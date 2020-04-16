@@ -80,22 +80,22 @@ totalFrames = counter * 8;
 afw2 = dsp.AudioFileWriter('EchoWatermarkedTest.wav', 'FileFormat', 'WAV');
 
 mixCounter = 1;
-length = numel(bitstream);
+lengthb = length(bitstream);
 repeat = 0;
 
 while mixCounter <= totalFrames
     audio1 = afr3();
     audio2 = afr4();
     
-    if(bitstream(mixCounter - repeat*length) == 0)
+    if(bitstream(mixCounter - repeat*lengthb) == 0)
         afw2(audio1);
     end
-    if(bitstream(mixCounter - repeat*length) == 1)
+    if(bitstream(mixCounter - repeat*lengthb) == 1)
         afw2(audio2);
     end
     
     mixCounter = mixCounter + 1;
-    if(mixCounter > length * (repeat + 1))
+    if(mixCounter > lengthb * (repeat + 1))
         repeat = repeat + 1;
     end
 end

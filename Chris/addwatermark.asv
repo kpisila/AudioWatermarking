@@ -26,7 +26,7 @@ b = size(code); % getting the size of user input
        K = convertCharsToStrings(Y); % takes cell on converts to a string
        
         P = str2double(K); %turns string into double.
-        bitstream = P;
+        
        
         
         
