@@ -1,4 +1,4 @@
-function Bitstream=addwatermark()
+function bitstream=addwatermark()
 
 
 c = [1,50]; % setting a limit on input length
@@ -25,7 +25,7 @@ b = size(code); % getting the size of user input
       
        K = convertCharsToStrings(Y); % takes cell on converts to a string
        
-        Bitstream = str2double(K); %turns string into double.
+        bitstream = str2double(K); %turns string into double.
         
       
         
