@@ -7,8 +7,7 @@ code = input(prompt,'s'); % getting user input and storeing it
 
 b = size(code); % getting the size of user input
 
-
- if (b == c)  % checking to make sure its only 10 characters
+if (b == c)  % checking to make sure its only 10 characters
     
      
      x = dec2bin(code); % taking user input and turning into binary
@@ -29,8 +28,6 @@ b = size(code); % getting the size of user input
 disp('Your original word is:') 
 disp(decoded) % displays word for checking process
 
- else
-     disp('Error, Must be 10 characters!');% if user input is not exactly 10, error pops up
-     
-    
- end
+else
+    disp('Error, Must be 10 characters!');% if user input is not exactly 10, error pops up
+end
