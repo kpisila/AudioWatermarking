@@ -1,8 +1,9 @@
 
 
 c = [1,50]; % setting our legnth standard
-phrase1 = ['Please enter the file path where the audio is located:' newline];
+phrase1 = ['Please enter the file path where the audio is located' newline '       Example:C:"\"Users\clewi\OneDrive\Documents\GitHub\AudioWatermarking' newline ':'];
 
+userfilepath = input(phrase1,'s');
 phrase = [ 'Please enter a word:' newline];
 prompt = phrase;
 code = input(prompt,'s'); % getting user input and storeing it
