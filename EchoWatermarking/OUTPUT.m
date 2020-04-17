@@ -1,1 +1,3 @@
-opBit=readwatermark();
+userFilePath = getUserFilePath();
+bitstream = readWMSection(userFilePath);
+readwatermark(bitstream);
