@@ -1,8 +1,9 @@
-function [] = AddEchoFunction(bitstream)
+function [] = AddEchoFunction(bitstream, filepath)
 spf = 32768;
+maxValue = 0;
 for i = 1:2
     %%%%%%%%%%%%%%%%%%%%% Create MATLAB objects to read the audio file %%%%%%%%
-    afr1 = dsp.AudioFileReader('C:\Program Files\MATLAB\AudioFiles\TheCarSong.mp3', 'SamplesPerFrame', spf);
+    afr1 = dsp.AudioFileReader(filepath, 'SamplesPerFrame', spf);
     afr2 = dsp.AudioFileReader('C:\Program Files\MATLAB\AudioFiles\TheCarSong.mp3', 'SamplesPerFrame', spf);
 
     %%%%%%%%%%%%%%%%%% Create MATLAB objects to write new audio files %%%%%%%%%
@@ -44,13 +45,13 @@ for i = 1:2
         firsthalf = audio2(afterDelay:end,1:2);%take the second half of the second 
                                         %chunk and save it for next time
 
-        audio3 = (audio1 * 1) + (audio4 * .3);
+        audio3 = (audio1 * 0.7) + (audio4 * .3);
     %     if counter == 1       This is an alternate way of creating echo,
     %        afr2.reset();      reset starts the second copy at the beginning
     %     end                   It is limited to multiples of the chunk size
 
         %adw(audio3);            %play the audio chunk
-        
+        maxValue = max(max(audio3), maxValue)
         if(i == 1)
             afw1(audio3);            %save the audio chunk
         end

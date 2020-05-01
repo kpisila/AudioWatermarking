@@ -1,11 +1,16 @@
-afr = dsp.AudioFileReader('C:\Users\Kai\Documents\GitHub\AudioWatermarking\EchoWatermarking\OutputAudio\EchoEcho.wma');
+afr = dsp.AudioFileReader('C:\Users\Kai\Documents\GitHub\EchoWatermarkedTest.wav');
 adw = audioDeviceWriter('SampleRate', afr.SampleRate);
-segments = 100;
+
+bitNumber = 5;
+
+segments = 4;
 segmentLength = segments*1024;
 audio2 = zeros(segmentLength, 2);
 counter = 0;
-for i = 1:20
-   audio = afr(); 
+if bitNumber > 1
+    for i = 1:(bitNumber - 1)*segments
+       audio = afr(); 
+    end
 end
 while counter < segments %~isDone(afr)
     temp1 = 1024*counter + 1;
@@ -14,7 +19,6 @@ while counter < segments %~isDone(afr)
     adw(audio);
     audio2(temp1:temp2,1:2) = audio;
     counter = counter + 1
-    
 end
 release(afr); 
 release(adw);
