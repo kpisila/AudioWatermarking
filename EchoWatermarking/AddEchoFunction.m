@@ -51,7 +51,7 @@ for i = 1:2
     %     end                   It is limited to multiples of the chunk size
 
         %adw(audio3);            %play the audio chunk
-        maxValue = max(max(audio3), maxValue)
+        maxValue = max(max(audio3), maxValue);
         if(i == 1)
             afw1(audio3);            %save the audio chunk
         end
@@ -90,9 +90,11 @@ while mixCounter <= totalFrames
     
     if(bitstream(mixCounter - repeat*lengthb) == 0)
         afw2(audio1);
+        disp(0);
     end
     if(bitstream(mixCounter - repeat*lengthb) == 1)
         afw2(audio2);
+        disp(1);
     end
     
     mixCounter = mixCounter + 1;

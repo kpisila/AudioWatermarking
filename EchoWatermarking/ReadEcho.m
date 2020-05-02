@@ -1,7 +1,7 @@
 afr = dsp.AudioFileReader('C:\Users\Kai\Documents\GitHub\EchoWatermarkedTest.wav');
 adw = audioDeviceWriter('SampleRate', afr.SampleRate);
 
-bitNumber = 5;
+bitNumber = 20;
 
 segments = 4;
 segmentLength = segments*1024;
@@ -22,8 +22,13 @@ while counter < segments %~isDone(afr)
 end
 release(afr); 
 release(adw);
-oneChannel = audio2(1:segmentLength,2:2);
+oneChannel = audio2(1:segmentLength,1:1);
+AutoCepstrum = real((ifft(log(fft(oneChannel)).^2)).^2);
 c = cceps(oneChannel);
 t = 1:1:segmentLength;
-plot(t,oneChannel)
-plot(t,c)
+plot(t,oneChannel);
+hold on
+
+plot(t,AutoCepstrum);
+
+hold off
