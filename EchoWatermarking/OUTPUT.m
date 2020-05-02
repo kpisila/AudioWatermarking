@@ -1,3 +1,3 @@
 userFilePath = getUserFilePath();
-bitstream = readWMSection(userFilePath);
+bitstream = readWMAudio(userFilePath);
 readwatermark(bitstream);

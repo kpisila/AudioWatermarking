@@ -4,7 +4,7 @@ maxValue = 0;
 for i = 1:2
     %%%%%%%%%%%%%%%%%%%%% Create MATLAB objects to read the audio file %%%%%%%%
     afr1 = dsp.AudioFileReader(filepath, 'SamplesPerFrame', spf);
-    afr2 = dsp.AudioFileReader('C:\Program Files\MATLAB\AudioFiles\TheCarSong.mp3', 'SamplesPerFrame', spf);
+    afr2 = dsp.AudioFileReader(filepath, 'SamplesPerFrame', spf);
 
     %%%%%%%%%%%%%%%%%% Create MATLAB objects to write new audio files %%%%%%%%%
 
