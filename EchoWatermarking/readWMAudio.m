@@ -1,6 +1,8 @@
-  
+function [opBit, error] = readWMAudio(filepath, delay0, delay1)
+% filepath = 'C:\Users\Kai\Documents\GitHub\EchoWatermarkedTest.wav';
+% delay0 = 256;
+% delay1 = 512;
 
-function [opBit, error] = readWMAudio(filepath)
 error = 0;
 opBit = zeros( 1, 2);
 opBitidx = 1;
@@ -14,7 +16,7 @@ while ~isDone(afr)
     audio = afr();
  
 
-release(afr); 
+ 
 %release(adw);
 oneChannel = audio(1:4096,1:1);
 AutoCepstrum = real((ifft(log(fft(oneChannel)).^2)).^2);
@@ -25,72 +27,75 @@ c = AutoCepstrum; %cceps(oneChannel);
 %figure(1), clf, hold on
 %plot(t,c)
 
+RD0a = delay0 - 10;
+RD0b = delay0 + 10;
+RD1a = delay1 - 10;
+RD1b = delay1 + 10;
+rangedelay0 = [RD0a RD0b];
+rangedelay1 = [RD1a RD1b]; 
 
-range256 = [245 265];
-range512 = [500 520]; 
-% i = range512(1);
-% while i< range512(2)
+% i = rangedelay1(1);
+% while i< rangedelay1(2)
 peeksC = find(diff(sign(diff(c)))<0)+1;
 
 %plots all peek values 
 %plot(t(peeksC),c(peeksC),'ro','linew',2,'markersize',10,'markerfacecolor','y')
 
-%taking the index from the local maxima around the 256 and 512 points
+%taking the index from the local maxima around the delay0 and delay1 points
 i = 1; 
-i256 = zeros( 1, 2);
-i512 = zeros( 1, 2); 
+idelay0 = zeros( 1, 2);
+idelay1 = zeros( 1, 2); 
 u = 1;
 p = 1; 
 while i <= length(peeksC)
     if peeksC(i) > 200 && peeksC(i) < 300 
-        i256(u) = c(peeksC(i));
+        idelay0(u) = c(peeksC(i));
         u = u + 1;
     end 
     if peeksC(i) > 475 && peeksC(i) < 530 
-        i512(p) = c(peeksC(i));
+        idelay1(p) = c(peeksC(i));
         p = p + 1; 
     end 
     i = i +1; 
 end
 
-avg256 = mean(i256);
-stdev256 = std(i256);
-avg512 = mean(i512);
-stdev512 = std(i512);
+avgdelay0 = mean(idelay0);
+stdevdelay0 = std(idelay0);
+avgdelay1 = mean(idelay1);
+stdevdelay1 = std(idelay1);
 
 %statistically different point to compare to 
-comp256 = avg256 + 3 * stdev256;
-comp512 = avg512 + 3 * stdev512;
+compdelay0 = avgdelay0 + 3 * stdevdelay0;
+compdelay1 = avgdelay1 + 3 * stdevdelay1;
 
 
-[maxLval256,maxLidx256] = max(c(range256(1):range256(2)));
-%plot(t(maxLidx256+range256(1)-1),maxLval256,'ko','linew',2,'markersize',5,'markerfacecolor','g')
+[maxLvaldelay0,maxLidxdelay0] = max(c(rangedelay0(1):rangedelay0(2)));
+%plot(t(maxLidxdelay0+rangedelay0(1)-1),maxLvaldelay0,'ko','linew',2,'markersize',5,'markerfacecolor','g')
 
-[maxLval512,maxLidx512] = max(c(range512(1):range512(2)));
-%plot(t(maxLidx512+range512(1)-1),maxLval512,'ko','linew',2,'markersize',5,'markerfacecolor','g')
+[maxLvaldelay1,maxLidxdelay1] = max(c(rangedelay1(1):rangedelay1(2)));
+%plot(t(maxLidxdelay1+rangedelay1(1)-1),maxLvaldelay1,'ko','linew',2,'markersize',5,'markerfacecolor','g')
 
 
 both = 0; 
-if comp256 < maxLval256
+if compdelay0 < maxLvaldelay0
     opBit = [opBit, 0]; 
     both = both + 1; 
 end
-if comp512 < maxLval512
+if compdelay1 < maxLvaldelay1
     opBit = [opBit, 1]; 
     both = both + 1;
 end 
 if both == 0 || both == 2
     error = error + 1;
 end 
-disp('Error');
-disp(error);
+%disp('Error');
+%disp(error);
 opBitidx = opBitidx + 1;
 currentBit = floor(opBitidx - error);
-disp(opBit(currentBit));
-
-
-
-
+%disp(opBit(currentBit));
 end
+release(afr);
+%disp('Error');
+%disp(error);
 end
 

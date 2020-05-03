@@ -11,7 +11,7 @@ function [bitstream, userfilepath] = addwatermark_v2()
     b = size(code); % getting the size of user input
 
 
-     if (b <= c)  % checking to make sure its only 10 characters
+     if (b <= c)  % checking to make sure its only 50 characters
 
          z= double(code); % getting ASCII value
 

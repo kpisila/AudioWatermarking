@@ -1,5 +1,5 @@
 
-prompt = [ 'Please enter any word:' newline];
+prompt = [ 'Which Bit would you like to see?' newline];
 code = input(prompt); % getting user input and storeing it
 
 bitNumber = code;
@@ -7,7 +7,7 @@ bitNumber = code;
 segments = 4;
 segmentLength = segments*1024;
 
-afr = dsp.AudioFileReader('C:\Users\Kai\Documents\GitHub\EchoWatermarkedTest.wav', 'SamplesPerFrame', segmentLength);
+afr = dsp.AudioFileReader('EchoWatermarkedTest.wav', 'SamplesPerFrame', segmentLength);
 
 
 audio2 = zeros(segmentLength, 2);

@@ -17,7 +17,7 @@ if (b <= c)  % checking to make sure its only 10 characters
      
      %this turns the code into a 10 by 7 matrix so I resized it into y
  
-     y= reshape(x',1,numel(x)); % resize
+     y = reshape(x',1,numel(x)); % resize
      
      a = size(y); %checking the size of which turns out is 1 by 70 not 1 by 80
   disp('Thank you, your word is stored'); 
