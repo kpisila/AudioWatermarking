@@ -1,4 +1,4 @@
-function [] = AddEchoFunction(bitstream, filepath, delay0, delay1)
+function [] = AddEchoFunction_v3(bitstream, filepath, delay0, delay1)
 spf = 32768;
 maxValue = 0;
 for i = 1:2
@@ -35,25 +35,20 @@ for i = 1:2
 
     firsthalf = audio2(afterDelay:end,1:2);%take the second half of the first chunk
 
-    while ~isDone(afr1)%counter < 500
+    while ~isDone(afr1)
+        
         audio4(1:endFirst,1:2) = firsthalf;  %use it as the first half of the splice
 
         audio1 = afr1();
-        audio2 = afr2();
-
-                                                    %use the first half of the
-        audio4(startSecond:end,1:2) = audio2(1:delay,1:2);    %second chunk as the second
-                                                    %half of the splice.
-
+        audio2 = afr2();                                    
+                                                            %use the first half of the
+        audio4(startSecond:end,1:2) = audio2(1:delay,1:2);  %second chunk as the second
+                                                            %half of the splice.
+                                                    
         firsthalf = audio2(afterDelay:end,1:2);%take the second half of the second 
-                                        %chunk and save it for next time
-
+                                                %chunk and save it for next time
         audio3 = (audio1 * 0.7) + (audio4 * .3);
-    %     if counter == 1       This is an alternate way of creating echo,
-    %        afr2.reset();      reset starts the second copy at the beginning
-    %     end                   It is limited to multiples of the chunk size
 
-        %adw(audio3);            %play the audio chunk
         maxValue = max(max(audio3), maxValue);
         if(i == 1)
             afw1(audio3);            %save the audio chunk
@@ -63,19 +58,13 @@ for i = 1:2
         end
         counter = counter + 1;  %then move to the next chunk
     end
-    %afr1.reset();
-    %counter = 0;
-    %while counter < 500
-     %   audio1 = afr1();
-      %  adw(audio1);
-       % counter = counter +1;
-    %end
     release(afr1); 
     release(afr2); 
     release(adw);
     release(afw1);
     release(afw2);
 end
+
 spf2 = 4096;
 afr3 = dsp.AudioFileReader('Echo1.wav', 'SamplesPerFrame', spf2);
 afr4 = dsp.AudioFileReader('Echo2.wav', 'SamplesPerFrame', spf2);
@@ -93,11 +82,9 @@ while mixCounter <= totalFrames
     
     if(bitstream(mixCounter - repeat*lengthb) == 0)
         afw2(audio1);
-        disp(0);
     end
     if(bitstream(mixCounter - repeat*lengthb) == 1)
         afw2(audio2);
-        disp(1);
     end
     
     mixCounter = mixCounter + 1;

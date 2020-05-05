@@ -1,6 +1,6 @@
-function [bitstream, userfilepath, delay0, delay1] = addwatermark_v2()
+function [bitstream, userfilepath, delay0, delay1] = addwatermark_v3()
 
-    c = 50; % setting our legnth standard
+    c = 50; % setting our legnth maximum
     phrase1 = ['Please enter the file path where the audio is located' newline '       Example:C:"\"Users\clewi\OneDrive\Documents\GitHub\AudioWatermarking' newline ':'];
 
     userfilepath = input(phrase1,'s');

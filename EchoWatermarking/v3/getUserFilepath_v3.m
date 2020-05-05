@@ -1,4 +1,4 @@
-function [filepath, delay0, delay1] = getUserFilepath()    
+function [filepath, delay0, delay1] = getUserFilepath_v3()    
     
     phrase1 = ['Please enter the file path where the watermarked audio is located' newline];
     filepath = input(phrase1,'s');

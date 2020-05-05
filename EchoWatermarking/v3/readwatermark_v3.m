@@ -1,4 +1,4 @@
-function [] = readwatermark(opBit)
+function [] = readwatermark_v3(opBit)
     %opBit = [1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1]; 
     %%%%%% First clip the bitstream to whole 7-bit chars
     BitLength = numel(opBit);
