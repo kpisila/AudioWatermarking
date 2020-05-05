@@ -1,5 +1,5 @@
 [userFilePath, delay0, delay1] = getUserFilepath();
-bitstream = readWMAudio(userFilePath, delay0, delay1);
+bitstream = readWMAudio_v2(userFilePath, delay0, delay1);
 readwatermark(bitstream); %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Not working, work in progress
 
 

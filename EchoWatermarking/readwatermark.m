@@ -1,15 +1,18 @@
-%function []= readwatermark(opBit)
-   opBit = [1 0 1 0 1 0 1]; 
-   BitLength = numel(opBit);
-   numChars = floor(BitLength / 7);
-   numUsableBits = floor(numChars * 7); %%%%%%%%%%%%%%%%%%%%%%%%%%% Work in Progress Here
-   truncated = opBitTemp(1:numUsableBits);
-   opBitTemp = num2str(truncated)% converts the string back to a char
-    
-   %i = cell2mat(opBit);% creates a matrix from a cell
-   
-   %decoded = char(bin2dec(reshape(truncated,7,[]).')).';% reshapes the array into correct form and converts into characters
+function [] = readwatermark(opBit)
+    %opBit = [1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1]; 
+    %%%%%% First clip the bitstream to whole 7-bit chars
+    BitLength = numel(opBit);
+    numChars = floor(BitLength / 7);
+    numUsableBits = floor(numChars * 7);
+    truncated = opBit(1:numUsableBits);
+
+    %%%%%% Then convert the stream of bits into a character array
+    reshaped = (reshape(truncated,7,[]).'); %place each group of 7 bits in 1 row
+    opBitTemp = num2str(reshaped);% convert the rows of 1s and 0s to strings
+    i = num2cell(opBitTemp, 2);% covert the array to a cell array(required by bin2dec)
+    decoded = char(bin2dec(i).');% converts into characters
    
  
-disp('Your original word is:') 
-%disp(decoded) % displays word for checking process
+    disp('Your original word is:') 
+    disp(decoded) % displays word for checking process
+end

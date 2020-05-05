@@ -22,6 +22,9 @@ release(afr);
 
 oneChannel = audio2(1:segmentLength,1:1);
 AutoCepstrum = real((ifft(log(fft(oneChannel)).^2)).^2);
+% std(AutoCepstrum(500:525))
+% mean(AutoCepstrum(500:525))
+% AutoCepstrum(513)
 %c = cceps(oneChannel);
 t = 1:1:segmentLength;
 %plot(t,oneChannel);

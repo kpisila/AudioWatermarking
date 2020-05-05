@@ -1,4 +1,4 @@
-function [] = AddEchoFunction(bitstream, filepath)
+function [] = AddEchoFunction(bitstream, filepath, delay0, delay1)
 spf = 32768;
 maxValue = 0;
 for i = 1:2
@@ -19,9 +19,12 @@ for i = 1:2
     %%%%%%%%%%%% returns the next 1024 x 2 array of the file   %%%%%%%%%%%%%%
     %%%%%%%%%%%% If one copy is called first before we start   %%%%%%%%%%%%%%
     %%%%%%%%%%%% The loop, it is ahead by one step.             %%%%%%%%%%%%%%
-
-    delay = 256*i;    %%%%%%%% Alter this value to change the added delay
-
+    if i == 1
+        delay = delay0;    %%%%%%%% Alter this value to change the added delay
+    end
+    if i == 2
+        delay = delay1;
+    end
     afterDelay = delay + 1;
     startSecond = spf + 1 - delay;
     endFirst = spf - delay;
