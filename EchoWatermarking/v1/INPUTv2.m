@@ -4,8 +4,8 @@ bitstreamOut = readWMAudio_v2('EchoWatermarkedTest.wav', delay0, delay1);
 for i = 1:20
     bitstream = [bitstream, bitstream];
 end
-%bitstreamIn = bitstream(1:numel(bitstreamOut));
+bitstreamIn = bitstream(1:numel(bitstreamOut));
 err = immse(bitstream ,bitstream)
 
 %C:\Program Files\MATLAB\AudioFiles\KillerQueen.mp3
-%C:\Users\Kai\Documents\GitHub\AudioWatermarking\EchoWatermarking\v2\AudioTracks\Anvil-Lorn\TrimmedLORN-ANVIL.mp3  
+%C:\Users\Kai\Documents\GitHub\AudioWatermarking\LSB\input.wav
