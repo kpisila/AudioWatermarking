@@ -4,21 +4,20 @@ Delay0 = 300;
 Delay1 = 500;
 %%%%%%%%%%%%%%%%% Loop Logic %%%%%%%%%%%%%%%%%%%                
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% t = zeros(1,20);
-% indexFor = 1;
-% errorPercent = zeros(1,20);
-% 
-% for StdDevThreshold = 0.1:0.1:2
-% t(floor(indexFor)) = StdDevThreshold;
+t = zeros(1,20);
+indexFor = 1;
+errorPercent = zeros(1,20);
+
+for StdDevThreshold = 0.1:0.1:2
+t(floor(indexFor)) = StdDevThreshold;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-StdDevThreshold = 25; %% Comment out when using loop
+%StdDevThreshold = 25; %% Comment out when using loop
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 errorCode = [0 1 0 0 0 1 1];
 
 positionInChar = 1;
 error = 0;
-incorrect = 0;
 errorFound = 0;
 bitstream = zeros( 1, 2);
 bitstreamIndex = 3;
@@ -45,9 +44,7 @@ while bitstreamIndex < 2000 %~isDone(afr)
     avgDelay1 = mean(mean([c(RD1a:RD1b), c(RD1c:RD1d)]));
     Delay1StdDev = mean(std([c(RD1a:RD1b), c(RD1c:RD1d)]));
 
-    Delay0value = (max(c(RD0b:RD0c)) - avgDelay0) / Delay0StdDev;
-    Delay1value = (max(c(RD1b:RD1c)) - avgDelay1) / Delay1StdDev;
-    
+    Delay0value = 
     %statistically different point to compare to 
     Delay0Threshold = avgDelay0 + (StdDevThreshold * Delay0StdDev) * Delay_overallStdDev;
     Delay1Threshold = avgDelay1 + (StdDevThreshold * Delay1StdDev) * Delay_overallStdDev;
@@ -56,10 +53,9 @@ while bitstreamIndex < 2000 %~isDone(afr)
     [Delay0Max,maxLIndexDelay0] = max(c(RD0b:RD0c));
     [Delay1Max,maxLIndexDelay1] = max(c(RD1b:RD1c));
     
-    
+    incorrect = 0;
     both = 0; 
-    %if Delay0Threshold < Delay0Max
-    if Delay0value > Delay1value
+    if Delay0Threshold < Delay0Max
         if rem(bitstreamIndex, 2)
             bitstream = [bitstream, 5];
             incorrect = incorrect + 1;
@@ -69,8 +65,7 @@ while bitstreamIndex < 2000 %~isDone(afr)
             both = both + 1; 
         end
     end
-    %if Delay1Threshold < Delay1Max
-    if Delay1value > Delay0value
+    if Delay1Threshold < Delay1Max
         if ~rem(bitstreamIndex, 2)
             bitstream = [bitstream, 5]; 
             incorrect = incorrect + 1;
@@ -109,21 +104,17 @@ while bitstreamIndex < 2000 %~isDone(afr)
 end
 release(afr);
 bitstream = bitstream(3:end);
-disp(bitstream);
-disp('incorrect');
-disp(incorrect);
-disp('error');
-disp(error);
+%disp(bitstream);
+disp(incorrect)
 error = error + incorrect;
-percentCorrect = 100 - error / bitstreamIndex * 100
 %%%%%%%%%%%%%%%%% Loop Logic %%%%%%%%%%%%%%%%%%%                
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% disp(StdDevThreshold);
-% errorPercent(floor(indexFor)) = error / bitstreamIndex * 100;
-% disp(error / bitstreamIndex * 100);
-% indexFor = indexFor + 1;
-% end
-% plot(t,errorPercent);
+disp(StdDevThreshold);
+errorPercent(floor(indexFor)) = error / bitstreamIndex * 100;
+disp(error / bitstreamIndex * 100);
+indexFor = indexFor + 1;
+end
+plot(t,errorPercent);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %end
