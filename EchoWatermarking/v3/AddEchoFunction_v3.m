@@ -70,7 +70,7 @@ afr3 = dsp.AudioFileReader('Echo1.wav', 'SamplesPerFrame', spf2);
 afr4 = dsp.AudioFileReader('Echo2.wav', 'SamplesPerFrame', spf2);
 totalFrames = counter * 8;
 
-afw2 = dsp.AudioFileWriter('EchoWatermarkedTest.wav', 'FileFormat', 'WAV');
+afw2 = dsp.AudioFileWriter('EchoWatermarkedNoT.wav', 'FileFormat', 'WAV');
 
 mixCounter = 1;
 lengthb = length(bitstream);
