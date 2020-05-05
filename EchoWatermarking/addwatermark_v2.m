@@ -1,9 +1,16 @@
-function [bitstream, userfilepath] = addwatermark_v2()
+function [bitstream, userfilepath, delay0, delay1] = addwatermark_v2()
 
     c = 50; % setting our legnth standard
     phrase1 = ['Please enter the file path where the audio is located' newline '       Example:C:"\"Users\clewi\OneDrive\Documents\GitHub\AudioWatermarking' newline ':'];
 
     userfilepath = input(phrase1,'s');
+
+    phrase2 = ['Please enter the echo delay corresponding to a 0' newline];
+    delay0 = input(phrase2);
+    
+    phrase3 = ['Please enter the echo delay corresponding to a 1' newline];
+    delay1 = input(phrase3);
+    
     phrase = [ 'Please enter any word:' newline];
     prompt = phrase;
     code = input(prompt,'s'); % getting user input and storeing it
