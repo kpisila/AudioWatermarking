@@ -26,8 +26,10 @@ afr = dsp.AudioFileReader(filepath, 'SamplesPerFrame', 4096);
 
 while bitstreamIndex < 2000 %~isDone(afr)
     audio = afr();
-    if audio == check
-        break;
+    if (audio == check)
+        if  bitstreamIndex > 10
+            break;
+        end
     end
     oneChannel = audio(1:4096,1:1);
     AutoCepstrum = real((ifft(log(fft(oneChannel)).^2)).^2);
@@ -68,29 +70,29 @@ while bitstreamIndex < 2000 %~isDone(afr)
     both = 0; 
     %if Delay0Threshold < Delay0Max
     if Delay0value > Delay1value
-        if rem(bitstreamIndex, 2)
-            bitstream = [bitstream, 0];
-            incorrect = incorrect + 1;
-            errorFound = 1;
-            both = 3;
-        end
-        if ~rem(bitstreamIndex, 2)
+%         if rem(bitstreamIndex, 2)
+%             bitstream = [bitstream, 0];
+%             incorrect = incorrect + 1;
+%             errorFound = 1;
+%             both = 3;
+%         end
+%         if ~rem(bitstreamIndex, 2)
             bitstream = [bitstream, 0]; 
             both = both + 1; 
-        end
+%         end
     end
     %if Delay1Threshold < Delay1Max
     if Delay1value > Delay0value
-        if ~rem(bitstreamIndex, 2)
-            bitstream = [bitstream, 0]; 
-            incorrect = incorrect + 1;
-            both = 3;
-            errorFound = 1;
-        end
-        if rem(bitstreamIndex, 2)
+%         if ~rem(bitstreamIndex, 2)
+%             bitstream = [bitstream, 0]; 
+%             incorrect = incorrect + 1;
+%             both = 3;
+%             errorFound = 1;
+%         end
+%         if rem(bitstreamIndex, 2)
             bitstream = [bitstream, 1]; 
             both = both + 1;
-        end
+%        end
     end 
     if both == 0
         bitstream = [bitstream, 0];
