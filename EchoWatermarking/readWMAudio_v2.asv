@@ -1,7 +1,7 @@
-function [bitstream, error] = readWMAudio_v2(filepath, Delay0, Delay1)
-% filepath = 'EchoWatermarkedTest.wav';
-% Delay0 = 256;
-% Delay1 = 512;
+%function [bitstream, error] = readWMAudio_v2(filepath, Delay0, Delay1)
+filepath = 'EchoWatermarkedTest.wav';
+Delay0 = 300;
+Delay1 = 500;
 %%%%%%%%%%%%%%%%% Loop Logic %%%%%%%%%%%%%%%%%%%                
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % t = zeros(1,20);
@@ -26,9 +26,7 @@ afr = dsp.AudioFileReader(filepath, 'SamplesPerFrame', 4096);
 
 while bitstreamIndex < 2000 %~isDone(afr)
     audio = afr();
-    if audio == check
-        break;
-    end
+    if audio = che
     oneChannel = audio(1:4096,1:1);
     AutoCepstrum = real((ifft(log(fft(oneChannel)).^2)).^2);
     c = AutoCepstrum;
@@ -69,9 +67,8 @@ while bitstreamIndex < 2000 %~isDone(afr)
     %if Delay0Threshold < Delay0Max
     if Delay0value > Delay1value
         if rem(bitstreamIndex, 2)
-            bitstream = [bitstream, 0];
+            bitstream = [bitstream, 5];
             incorrect = incorrect + 1;
-            errorFound = 1;
             both = 3;
         end
         if ~rem(bitstreamIndex, 2)
@@ -82,10 +79,9 @@ while bitstreamIndex < 2000 %~isDone(afr)
     %if Delay1Threshold < Delay1Max
     if Delay1value > Delay0value
         if ~rem(bitstreamIndex, 2)
-            bitstream = [bitstream, 0]; 
+            bitstream = [bitstream, 5]; 
             incorrect = incorrect + 1;
             both = 3;
-            errorFound = 1;
         end
         if rem(bitstreamIndex, 2)
             bitstream = [bitstream, 1]; 
@@ -93,7 +89,7 @@ while bitstreamIndex < 2000 %~isDone(afr)
         end
     end 
     if both == 0
-        bitstream = [bitstream, 0];
+        bitstream = [bitstream, 8];
         error = error + 1;
         errorFound = 1;
     end 
@@ -121,13 +117,13 @@ while bitstreamIndex < 2000 %~isDone(afr)
 end
 release(afr);
 bitstream = bitstream(3:end);
-% disp(bitstream);
-% disp('incorrect');
-% disp(incorrect);
-% disp('error');
-% disp(error);
-% error = error + incorrect;
-% percentCorrect = 100 - error / bitstreamIndex * 100;
+%disp(bitstream);
+disp('incorrect');
+disp(incorrect);
+disp('error');
+disp(error);
+error = error + incorrect;
+percentCorrect = 100 - error / bitstreamIndex * 100
 %%%%%%%%%%%%%%%%% Loop Logic %%%%%%%%%%%%%%%%%%%                
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % disp(StdDevThreshold);
@@ -138,4 +134,4 @@ bitstream = bitstream(3:end);
 % plot(t,errorPercent);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-end
+%end
