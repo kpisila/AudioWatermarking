@@ -4,3 +4,6 @@ readwatermark_v3(bitstream); %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Not wo
 
 
 %C:\Users\Kai\Documents\GitHub\EchoWatermarkedTest.wav
+
+%/Users/benpoholchuk/Documents/GitHub/AudioWatermarking/EchoWatermarking/v3/EchoWatermarkedTest.wav
+
